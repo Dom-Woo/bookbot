@@ -1,33 +1,24 @@
-def get_num_words():
-    book_path = "books/frankenstein.txt"
-    text = get_book_text(book_path)
+def get_num_words(text):
     words = text.split()
-    word_count = len(words) 
-    #print("75767 words found in the document")
-    print(f"{word_count} words found in the document") 
+    return len(words)
 
-def get_num_letters():  
-    letter_count = {}
-    book_path = "books/frankenstein.txt"
-    text = get_book_text(book_path)
-    lower_text = text.lower()
-    lower_words = lower_text.split()
-    for char in lower_text:
-        if char in letter_count:
-            letter_count[char] += 1
+def get_chars_dict(text):
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
         else:
-            letter_count[char] = 1
-    print (letter_count)
+            chars[lowered] = 1
+    return chars
 
-    #words = text.split()
-    #lower_case = words.lower()
-    #letters = list(lower_case)
-    #letter_count = (letters)
-    #print (letter_count)
+def sort_chars(chars_dict):
+    chars_list = []
+    for char, count in chars_dict.items():
+        char_dict = {"char": char, "count": count}
+        chars_list.append(char_dict)
+    chars_list.sort(reverse=True, key=sort_on)
+    return chars_list
 
-def get_book_text(path):
-    with open(path) as f:
-        return f.read()
-    
-get_num_letters()
-get_num_words()
+def sort_on(dict):
+    return dict["count"]
